@@ -1,6 +1,6 @@
-package at.or.eru.gsm.converter;
+package at.or.eru.gps.converter;
 
-import at.or.eru.gsm.converter.data.UnitPositionData;
+import at.or.eru.gps.converter.data.UnitPositionData;
 
 import java.util.Locale;
 

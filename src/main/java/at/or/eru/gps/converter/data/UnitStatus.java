@@ -1,8 +1,9 @@
-package at.or.eru.gsm.converter.data;
+package at.or.eru.gps.converter.data;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.Objects;
 
@@ -45,7 +46,7 @@ public final class UnitStatus {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append(status)
                 .toString();
     }

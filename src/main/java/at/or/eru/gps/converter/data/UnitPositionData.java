@@ -1,10 +1,10 @@
-package at.or.eru.gsm.converter.data;
+package at.or.eru.gps.converter.data;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -77,7 +77,7 @@ public class UnitPositionData {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
                 .append("timestamp", timestamp)
                 .append("longitude", longitude)
                 .append("latitude", latitude)

@@ -1,8 +1,8 @@
-package at.or.eru.gsm.converter;
+package at.or.eru.gps.converter;
 
-import at.or.eru.gsm.converter.data.UnitId;
-import at.or.eru.gsm.converter.data.UnitPositionData;
-import at.or.eru.gsm.converter.data.UnitStatus;
+import at.or.eru.gps.converter.data.UnitId;
+import at.or.eru.gps.converter.data.UnitPositionData;
+import at.or.eru.gps.converter.data.UnitStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
