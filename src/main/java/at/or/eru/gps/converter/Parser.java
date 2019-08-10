@@ -29,22 +29,25 @@ public class Parser {
             String filtered = matcher.group(0);
             String[] split = filtered.split(",");
 
-            String latitudeRaw = split[3];
-            String latitudeOrientation = split[4];
-            double latitude = getDegrees(latitudeRaw, 2, getOrientationOfLatitude(latitudeOrientation));
+            if (split.length > 9) {
+                String latitudeRaw = split[3];
+                String latitudeOrientation = split[4];
+                double latitude = getDegreesSafe(latitudeRaw, 2, getOrientationOfLatitude(latitudeOrientation));
 
-            String longitudeRaw = split[5];
-            String longitudeOrientation = split[6];
-            double longitude = getDegrees(longitudeRaw, 3, getOrientationOfLongitude(longitudeOrientation));
+                String longitudeRaw = split[5];
+                String longitudeOrientation = split[6];
+                double longitude = getDegreesSafe(longitudeRaw, 3, getOrientationOfLongitude(longitudeOrientation));
 
-            UnitId unitId = getUnitId(split);
-            UnitStatus unitStatus = getUnitStatus(split);
-            LocalDateTime dateTime = getTimestamp(split);
+                UnitId unitId = getUnitId(split);
+                UnitStatus unitStatus = getUnitStatus(split);
+                LocalDateTime dateTime = getTimestamp(split);
 
-            point = Optional.of(new UnitPositionData(dateTime, longitude, latitude, 0, unitId, unitStatus));
-
+                point = Optional.of(new UnitPositionData(dateTime, longitude, latitude, 0, unitId, unitStatus));
+            } else {
+                LOG.debug("Input line does not contain at least 9 comma separated blocks: '{}'", line);
+            }
         } else {
-            LOG.debug("Unsupported input line: {}", line);
+            LOG.debug("Unsupported input line from radio: '{}'", line);
         }
 
 
@@ -104,9 +107,21 @@ public class Parser {
         return Objects.equals("S", latitudeOrientation) ? DegreeOrientation.NEGATIVE : DegreeOrientation.POSITIVE;
     }
 
-    private static double getDegrees(final String longitudeRaw, final int realPartLength, final DegreeOrientation orientation) {
-        final double degreeRealPart = Double.parseDouble(longitudeRaw.substring(0, realPartLength));
-        final double minutes = Double.parseDouble(longitudeRaw.substring(realPartLength));
+    private static double getDegreesSafe(final String inputString, final int realPartLength, final DegreeOrientation orientation) {
+        double degrees;
+        try {
+            degrees = getDegrees(inputString, realPartLength, orientation);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            LOG.warn("Failed to read numeric degree value from string '{}'.", inputString);
+            degrees = 0;
+        }
+
+        return degrees;
+    }
+
+    private static double getDegrees(final String inputString, final int realPartLength, final DegreeOrientation orientation) {
+        final double degreeRealPart = Double.parseDouble(inputString.substring(0, realPartLength));
+        final double minutes = Double.parseDouble(inputString.substring(realPartLength));
 
         final double absoluteDegrees = degreeRealPart + (minutes / 60);
         return orientation == DegreeOrientation.POSITIVE ? absoluteDegrees : -1 * absoluteDegrees;
