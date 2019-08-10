@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class ParserTest {
-    private static final double EPSILON = 0.01;
+    private static final double EPSILON = 0.0001;
 
     private Parser sut;
 
@@ -26,7 +26,7 @@ public class ParserTest {
     @Test
     public void returnValidString() {
         // time, latitude, longitude, speed, heading, ???, ???, ???, unit id, status
-        String input = "00001$PKNDS,074505,A,4809.4440,N,01409.5561,E,000.0,,020618,,00,004332199,0028,00,*00";
+        String input = "00001$PKNDS,074505,A,4809.3040,N,01409.5561,E,000.0,,020618,,00,004332199,0028,00,*00";
 
         UnitPositionData data = sut.getPointForStringLine(input).get();
 
