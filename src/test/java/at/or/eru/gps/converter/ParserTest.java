@@ -14,6 +14,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class ParserTest {
+    private static final double EPSILON = 0.01;
+
     private Parser sut;
 
     @Before
@@ -28,8 +30,8 @@ public class ParserTest {
 
         UnitPositionData data = sut.getPointForStringLine(input).get();
 
-        assertThat(data.getLatitude(), closeTo(48.1550666666, 0.001));
-        assertThat(data.getLongitude(), closeTo(14.159268333333, 0.001));
+        assertThat(data.getLatitude(), closeTo(48.1550666666, EPSILON));
+        assertThat(data.getLongitude(), closeTo(14.159268333333, EPSILON));
         assertThat(data.getAltitude(), closeTo(0, 0.001));
     }
 
@@ -40,8 +42,8 @@ public class ParserTest {
 
         UnitPositionData data = sut.getPointForStringLine(input).get();
 
-        assertThat(data.getLatitude(), closeTo(-48.1550666666, 0.001));
-        assertThat(data.getLongitude(), closeTo(-14.159268333333, 0.001));
+        assertThat(data.getLatitude(), closeTo(-48.1550666666, EPSILON));
+        assertThat(data.getLongitude(), closeTo(-14.159268333333, EPSILON));
         assertThat(data.getAltitude(), closeTo(0, 0.001));
     }
 

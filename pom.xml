@@ -12,7 +12,7 @@
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <geobroker.client.lib.version>1.0.0-SNAPSHOT</geobroker.client.lib.version>
+        <geobroker.client.lib.version>1.0.0</geobroker.client.lib.version>
 
         <slf4j.version>1.7.26</slf4j.version>
         <log4j2.version>2.12.1</log4j2.version>
