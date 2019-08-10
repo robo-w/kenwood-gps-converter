@@ -45,7 +45,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>rwi.tetra.json.endpoint.startup.Main</mainClass>
+                            <mainClass>at.or.eru.gps.converter.CommandLineBootstrapper</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
