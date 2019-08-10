@@ -1,15 +1,11 @@
 package at.or.eru.gsm.converter;
 
-import java.util.List;
+import at.or.eru.gsm.converter.data.Point;
+
+import java.util.Locale;
 
 public class PointSerializer {
-    String serialize(final List<Point> pointList) {
-        StringBuilder coordinates = new StringBuilder();
-
-        for (Point point : pointList) {
-            coordinates.append(point.getLongitude()).append(",").append(point.getLatitude()).append(",").append(point.getAltitude()).append("\n");
-        }
-
-        return coordinates.toString();
+    String serialize(final Point point) {
+        return String.format(Locale.ROOT, "%f,%f,%f", point.getLongitude(), point.getLatitude(), point.getAltitude());
     }
 }

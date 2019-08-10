@@ -1,5 +1,7 @@
 package at.or.eru.gsm.converter;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,11 +11,10 @@ public class GsmConverter {
     private static final Logger LOG = LoggerFactory.getLogger(GsmConverter.class);
 
     public static void main(String... args) throws IOException {
-        LOG.info("Starting GSM Converter");
+        LOG.info("Starting Kenwood GPS Converter");
 
-        StreamParser streamParser = new StreamParser();
-        String coordinates = streamParser.readCoordinateList();
-
-        System.err.println(coordinates);
+        Injector injector = Guice.createInjector();
+        StreamParser streamParser = injector.getInstance(StreamParser.class);
+        streamParser.readCoordinateList(System.in, System.out::println);
     }
 }

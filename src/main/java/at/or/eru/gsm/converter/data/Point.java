@@ -1,6 +1,8 @@
-package at.or.eru.gsm.converter;
+package at.or.eru.gsm.converter.data;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.Objects;
 
 public class Point {
     private final double longitude;
@@ -23,6 +25,21 @@ public class Point {
 
     public double getAltitude() {
         return altitude;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return Double.compare(point.longitude, longitude) == 0 &&
+                Double.compare(point.latitude, latitude) == 0 &&
+                Double.compare(point.altitude, altitude) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(longitude, latitude, altitude);
     }
 
     @Override
