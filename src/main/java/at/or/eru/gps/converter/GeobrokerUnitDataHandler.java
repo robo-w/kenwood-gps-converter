@@ -15,6 +15,7 @@ import wien.dragon.geobroker.lib.GeobrokerPositionSender;
 import javax.inject.Inject;
 import java.time.Instant;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -77,7 +78,7 @@ class GeobrokerUnitDataHandler {
     private Position createPosition(final UnitPositionData positionData) {
         Instant timestamp = ignoreTimestamp
                 ? Instant.now()
-                : positionData.getTimestamp().toInstant(OffsetDateTime.now().getOffset());
+                : positionData.getTimestamp().toInstant(ZoneOffset.UTC);
         return new Position(positionData.getLatitude(), positionData.getLongitude(), timestamp, null, null, null);
     }
 

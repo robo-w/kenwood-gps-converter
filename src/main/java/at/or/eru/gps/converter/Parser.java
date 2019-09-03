@@ -19,10 +19,11 @@ import java.util.regex.Pattern;
 public class Parser {
     private static final Logger LOG = LoggerFactory.getLogger(Parser.class);
     private static final Pattern PATTERN = Pattern.compile(".*PKNDS(.*),\\*.*");
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyy hhmmss a", Locale.ROOT);;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyy HHmmss", Locale.ROOT);;
 
     Optional<UnitPositionData> getPointForStringLine(final String line) {
         Optional<UnitPositionData> point = Optional.empty();
+        LOG.trace("Trying to read data from input line: '{}'", line);
 
         Matcher matcher = PATTERN.matcher(line);
         if (matcher.matches()) {
@@ -56,12 +57,11 @@ public class Parser {
 
     private LocalDateTime getTimestamp(final String[] split) {
         String timeRaw = split[1];
-        String amPmRaw = split[2];
         String dateRaw = split[9];
 
         LocalDateTime dateTime = null;
         try {
-            dateTime = LocalDateTime.parse(String.format("%s %s %sM", dateRaw, timeRaw, amPmRaw), DATE_TIME_FORMATTER);
+            dateTime = LocalDateTime.parse(String.format("%s %s", dateRaw, timeRaw), DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             LOG.debug("Failed to parse LocalDateTime: {}", e.getMessage());
         }

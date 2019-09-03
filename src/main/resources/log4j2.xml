@@ -8,7 +8,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="at.or.eru" level="debug"/>
+        <Logger name="at.or.eru" level="trace"/>
 
         <!-- Root log level -->
         <Root level="info">

@@ -80,7 +80,7 @@ public class ParserTest {
     @Test
     public void returnValidStringWithTimestampPm() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
-        String input = "00001$PKNDS,114520,P,4809.3040,S,01409.5561,W,000.0,,021218,,00,004332199,0028,00,*00";
+        String input = "00001$PKNDS,234520,A,4809.3040,S,01409.5561,W,000.0,,021218,,00,004332199,0028,00,*00";
 
         UnitPositionData data = sut.getPointForStringLine(input).get();
 
@@ -90,7 +90,7 @@ public class ParserTest {
     @Test
     public void returnValidStringWithTimestampMidnight() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
-        String input = "00001$PKNDS,124520,A,4809.3040,S,01409.5561,W,000.0,,021218,,00,004332199,0028,00,*00";
+        String input = "00001$PKNDS,004520,A,4809.3040,S,01409.5561,W,000.0,,021218,,00,004332199,0028,00,*00";
 
         UnitPositionData data = sut.getPointForStringLine(input).get();
 

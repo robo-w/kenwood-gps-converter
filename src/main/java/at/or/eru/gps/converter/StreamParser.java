@@ -1,6 +1,7 @@
 package at.or.eru.gps.converter;
 
 import at.or.eru.gps.converter.data.UnitPositionData;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,13 @@ public class StreamParser {
         LOG.debug("Reading from stdin...");
         String readLine = bufferedReader.readLine();
         while (readLine != null) {
-            Optional<UnitPositionData> point = parser.getPointForStringLine(readLine);
-            point.ifPresent(resultConsumer::accept);
+            String trimmedLine = StringUtils.trimToNull(readLine);
+            if (trimmedLine != null) {
+                Optional<UnitPositionData> point = parser.getPointForStringLine(readLine);
+                point.ifPresent(resultConsumer);
+            } else {
+                LOG.trace("Ignoring empty input line.");
+            }
 
             readLine = bufferedReader.readLine();
         }
