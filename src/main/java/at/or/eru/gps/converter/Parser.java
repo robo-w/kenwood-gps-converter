@@ -3,11 +3,14 @@ package at.or.eru.gps.converter;
 import at.or.eru.gps.converter.data.UnitId;
 import at.or.eru.gps.converter.data.UnitPositionData;
 import at.or.eru.gps.converter.data.UnitStatus;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
@@ -19,7 +22,9 @@ import java.util.regex.Pattern;
 public class Parser {
     private static final Logger LOG = LoggerFactory.getLogger(Parser.class);
     private static final Pattern PATTERN = Pattern.compile(".*PKNDS(.*),\\*.*");
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyy HHmmss", Locale.ROOT);;
+    private static final String TIME_PATTERN = "HHmmss";
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN, Locale.ROOT);
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyy " + TIME_PATTERN, Locale.ROOT);;
 
     Optional<UnitPositionData> getPointForStringLine(final String line) {
         Optional<UnitPositionData> point = Optional.empty();
@@ -56,14 +61,22 @@ public class Parser {
     }
 
     private LocalDateTime getTimestamp(final String[] split) {
-        String timeRaw = split[1];
-        String dateRaw = split[9];
+        String timeRaw = StringUtils.trimToNull(split[1]);
+        String dateRaw = StringUtils.trimToNull(split[9]);
 
         LocalDateTime dateTime = null;
-        try {
-            dateTime = LocalDateTime.parse(String.format("%s %s", dateRaw, timeRaw), DATE_TIME_FORMATTER);
-        } catch (DateTimeParseException e) {
-            LOG.debug("Failed to parse LocalDateTime: {}", e.getMessage());
+        if (timeRaw != null && dateRaw != null) {
+            try {
+                dateTime = LocalDateTime.parse(String.format("%s %s", dateRaw, timeRaw), DATE_TIME_FORMATTER);
+            } catch (DateTimeParseException e) {
+                LOG.debug("Failed to parse LocalDateTime: {}", e.getMessage());
+            }
+        } else if (timeRaw != null) {
+            LOG.debug("Got only time parameter in input string. Using current date for parsing.");
+            LocalTime localTime = LocalTime.parse(timeRaw, TIME_FORMATTER);
+            dateTime = localTime.atDate(LocalDate.now());
+        } else {
+            LOG.debug("No time or date string given. Cannot parse timestamp from input string.");
         }
 
         return dateTime;

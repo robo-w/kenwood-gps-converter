@@ -6,7 +6,9 @@ import at.or.eru.gps.converter.data.UnitStatus;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresentAnd;
 import static org.hamcrest.Matchers.closeTo;
@@ -75,6 +77,16 @@ public class ParserTest {
         UnitPositionData data = sut.getPointForStringLine(input).get();
 
         assertThat(data.getTimestamp(), equalTo(LocalDateTime.of(2018, 6, 2, 7, 45, 5)));
+    }
+
+    @Test
+    public void returnValidStringWithGeneratedTimestamp() {
+        // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
+        String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,,,00,004332199,0028,00,*00";
+
+        UnitPositionData data = sut.getPointForStringLine(input).get();
+
+        assertThat(data.getTimestamp(), equalTo(LocalTime.of(7, 45, 5).atDate(LocalDate.now())));
     }
 
     @Test
