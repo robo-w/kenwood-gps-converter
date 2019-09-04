@@ -80,7 +80,7 @@ public class CommandLineBootstrapper {
         }
     }
 
-    private static void startStreamingMode() throws IOException {
+    private static void startStreamingMode() {
         LOG.info("Starting Kenwood GPS Converter in streaming mode.");
 
         Injector injector = Guice.createInjector();
