@@ -17,6 +17,7 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.*;
 
 public class StreamParserTest {
@@ -39,5 +40,20 @@ public class StreamParserTest {
                 hasProperty("timestamp", equalTo(expectedTimestamp)),
                 hasProperty("unitId", isPresentAnd(equalTo(UnitId.fromInt(4332199))))
         )));
+    }
+
+    @Test
+    public void multilineInputWithoutEtx_returnParsedPoint() {
+        String input = "\u0002$PKNDS,154614,A,4809.3040,N,01409.5561,E,000.0,,070919,,00,004332199,0028,00,*05\n" +
+                "\n" +
+                "\u0002$PKNDS,154617,A,4809.3040,N,01409.5561,E,000.1,,070919,,00,004332199,0028,00,*07\n" +
+                "\n" +
+                "\u0002$PKNDS,154619,A,4809.3040,N,01409.5561,E,000.0,,070919,,00,004332199,0028,00,*08\n" +
+                "\n";
+        Set<UnitPositionData> data = new HashSet<>();
+
+        sut.readCoordinateList(new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8)), data::add);
+
+        assertThat(data, hasSize(3));
     }
 }

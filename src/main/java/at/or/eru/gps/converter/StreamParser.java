@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class StreamParser {
@@ -18,6 +19,8 @@ public class StreamParser {
 
     private static final String ETX = ((char) Ascii.ETX) + "";
     private static final String STX = ((char) Ascii.STX) + "";
+
+    private static final Pattern SCAN_PATTERN = Pattern.compile("[\u0002\u0003\\n\\r]");
 
     private final Parser parser;
 
@@ -28,7 +31,7 @@ public class StreamParser {
 
     void readCoordinateList(final InputStream inputStream, final Consumer<UnitPositionData> resultConsumer) {
         try (Scanner scanner = new Scanner(inputStream)) {
-            scanner.useDelimiter(ETX);
+            scanner.useDelimiter(SCAN_PATTERN);
 
             LOG.debug("Reading from stdin delimited by Ascii ETX...");
             while (scanner.hasNext()) {
