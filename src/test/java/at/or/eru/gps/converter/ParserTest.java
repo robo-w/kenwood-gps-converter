@@ -108,4 +108,15 @@ public class ParserTest {
 
         assertThat(data.getTimestamp(), equalTo(LocalDateTime.of(2018, 12, 2, 0, 45, 20)));
     }
+
+    @Test
+    public void returnValidNxdnUnit() {
+        // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
+        String input = "$PKNDS,105242,A,4809.3040,N,01409.5561,E,000.0,000.0,081019,1.40,W00,U33998,207,00,*06";
+
+        UnitPositionData data = sut.getPointForStringLine(input).get();
+
+        assertThat(data.getUnitId(), isPresentAnd(equalTo(UnitId.fromString("U33998"))));
+        assertThat(data.getUnitStatus(), isPresentAnd(equalTo(UnitStatus.fromInt(207))));
+    }
 }
