@@ -68,13 +68,13 @@ public class CommandLineBootstrapper {
 
         GpxConfiguration gpxConfiguration;
         if (commandLine.hasOption("d")) {
-            gpxConfiguration = new GpxConfiguration(600, 720, commandLine.getOptionValue("d"), 30);
+            gpxConfiguration = new GpxConfiguration(600, 720, commandLine.getOptionValue("d"), 15);
         } else {
             gpxConfiguration = new GpxConfiguration(0, 0, null, 0);
         }
 
         Injector injector = Guice.createInjector(
-                new GeobrokerModule(geobrokerConfiguration, options.hasOption("i")),
+                new GeobrokerModule(geobrokerConfiguration, commandLine.hasOption("i")),
                 new GpxModule(gpxConfiguration),
                 new StreamingModule(streamingConfiguration)
         );
