@@ -1,6 +1,9 @@
-package at.or.eru.gps.converter.configuration;
+package at.or.eru.gps.converter.geobroker;
 
+import at.or.eru.gps.converter.configuration.GeobrokerConfiguration;
+import at.or.eru.gps.converter.configuration.IgnoreTimestamp;
 import com.google.inject.AbstractModule;
+import wien.dragon.geobroker.lib.GeobrokerLibModule;
 
 import java.util.Objects;
 
@@ -17,5 +20,8 @@ public class GeobrokerModule extends AbstractModule {
     protected void configure() {
         bind(GeobrokerConfiguration.class).toInstance(configuration);
         bind(Boolean.class).annotatedWith(IgnoreTimestamp.class).toInstance(ignoreTimestamps);
+        if (configuration.isValid()) {
+            install(new GeobrokerLibModule(configuration.getBaseUrl()));
+        }
     }
 }

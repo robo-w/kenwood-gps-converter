@@ -46,8 +46,6 @@ public final class UnitStatus {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append(status)
-                .toString();
+        return status;
     }
 }

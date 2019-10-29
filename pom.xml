@@ -20,7 +20,9 @@
         <com.google.inject.guice.version>4.2.2</com.google.inject.guice.version>
         <com.google.code.findbugs.jsr305>2.0.1</com.google.code.findbugs.jsr305>
         <apache.commons.lang3.version>3.9</apache.commons.lang3.version>
-        <com.google.guava.version>28.0-jre</com.google.guava.version>
+        <com.google.guava.version>28.1-jre</com.google.guava.version>
+        <io.jenetics.jpx.version>1.5.3</io.jenetics.jpx.version>
+        <commons.io.version>2.6</commons.io.version>
 
         <!-- Test dependencies -->
         <junit.version>4.12</junit.version>
@@ -36,8 +38,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <source>9</source>
-                    <target>9</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
 
@@ -140,6 +142,18 @@
             <groupId>wien.dragon</groupId>
             <artifactId>geobroker-client-lib</artifactId>
             <version>${geobroker.client.lib.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jenetics</groupId>
+            <artifactId>jpx</artifactId>
+            <version>${io.jenetics.jpx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
         </dependency>
 
         <!-- Test dependencies -->

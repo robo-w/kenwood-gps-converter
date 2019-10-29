@@ -1,9 +1,8 @@
 package at.or.eru.gps.converter.configuration;
 
-import com.google.common.collect.ImmutableList;
+import okhttp3.HttpUrl;
 
 import java.util.List;
-import java.util.Objects;
 
 public class GeobrokerConfiguration {
     private final String baseUrl;
@@ -12,8 +11,8 @@ public class GeobrokerConfiguration {
     public GeobrokerConfiguration(
             final String baseUrl,
             final List<UnitConfiguration> unitConfigurationList) {
-        this.baseUrl = Objects.requireNonNull(baseUrl);
-        this.unitConfigurationList = ImmutableList.copyOf(unitConfigurationList);
+        this.baseUrl = baseUrl;
+        this.unitConfigurationList = unitConfigurationList;
     }
 
     public String getBaseUrl() {
@@ -22,5 +21,21 @@ public class GeobrokerConfiguration {
 
     public List<UnitConfiguration> getUnitConfigurationList() {
         return unitConfigurationList;
+    }
+
+    public boolean isValid() {
+        return baseUrl != null && unitConfigurationList != null && checkUrl();
+    }
+
+    private boolean checkUrl() {
+        boolean valid;
+        try {
+            HttpUrl.get(baseUrl);
+            valid = true;
+        } catch (IllegalArgumentException e) {
+            valid = false;
+        }
+
+        return valid;
     }
 }

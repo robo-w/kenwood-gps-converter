@@ -1,4 +1,4 @@
-package at.or.eru.gps.converter;
+package at.or.eru.gps.converter.geobroker;
 
 import at.or.eru.gps.converter.configuration.GeobrokerConfiguration;
 import at.or.eru.gps.converter.configuration.IgnoreTimestamp;
@@ -14,7 +14,6 @@ import wien.dragon.geobroker.lib.GeobrokerPositionSender;
 
 import javax.inject.Inject;
 import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Collection;
 import java.util.Optional;
@@ -23,7 +22,7 @@ import java.util.function.Function;
 
 import static com.google.common.collect.Multimaps.toMultimap;
 
-class GeobrokerUnitDataHandler {
+public class GeobrokerUnitDataHandler {
     private static final Logger LOG = LoggerFactory.getLogger(GeobrokerUnitDataHandler.class);
     private final GeobrokerPositionSender positionSender;
     private final Multimap<UnitId, UnitConfiguration> configuredUnits;
@@ -42,7 +41,7 @@ class GeobrokerUnitDataHandler {
         this.ignoreTimestamp = ignoreTimestamp;
     }
 
-    void handle(final UnitPositionData positionData) {
+    public void handle(final UnitPositionData positionData) {
         LOG.debug("Handling position data: {}", positionData);
 
         Optional<UnitId> unitId = positionData.getUnitId();

@@ -1,8 +1,7 @@
-package at.or.eru.gps.converter;
+package at.or.eru.gps.converter.parser;
 
 import at.or.eru.gps.converter.data.UnitId;
 import at.or.eru.gps.converter.data.UnitPositionData;
-import com.github.npathai.hamcrestopt.OptionalMatchers;
 import org.junit.Before;
 import org.junit.Test;
 

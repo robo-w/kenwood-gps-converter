@@ -46,8 +46,6 @@ public final class UnitId {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append(id)
-                .toString();
+        return id;
     }
 }
