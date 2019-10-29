@@ -1,6 +1,7 @@
 package at.or.eru.gps.converter.gpx;
 
 import at.or.eru.gps.converter.configuration.GpxConfiguration;
+import at.or.eru.gps.converter.configuration.IgnoreTimestamp;
 import at.or.eru.gps.converter.data.UnitId;
 import at.or.eru.gps.converter.data.UnitPositionData;
 import com.google.common.collect.ImmutableSet;
@@ -28,11 +29,13 @@ public class TrackCache implements TrackFinishedCallback {
     private final Map<UnitId, UnitTrack> activeTracks;
     private final GpxConfiguration configuration;
     private final GpxWriter gpxWriter;
+    private final boolean ignoreTimestamp;
 
     @Inject
-    public TrackCache(final GpxConfiguration configuration, final GpxWriter gpxWriter) {
+    public TrackCache(final GpxConfiguration configuration, final GpxWriter gpxWriter, @IgnoreTimestamp final boolean ignoreTimestamp) {
         this.configuration = configuration;
         this.gpxWriter = gpxWriter;
+        this.ignoreTimestamp = ignoreTimestamp;
         this.activeTracks = new ConcurrentHashMap<>();
         startTrackWatchDog();
     }
@@ -62,7 +65,7 @@ public class TrackCache implements TrackFinishedCallback {
             final UnitId id,
             final UnitTrack existingTrack,
             final UnitPositionData positionData) {
-        UnitTrack updatedTrack = Objects.requireNonNullElseGet(existingTrack, () -> new UnitTrack(id, this, configuration));
+        UnitTrack updatedTrack = Objects.requireNonNullElseGet(existingTrack, () -> new UnitTrack(id, this, configuration, ignoreTimestamp));
         updatedTrack.addPosition(positionData);
         return updatedTrack;
     }

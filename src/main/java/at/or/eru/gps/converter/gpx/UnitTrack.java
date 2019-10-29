@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.concurrent.NotThreadSafe;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,14 +21,16 @@ class UnitTrack {
 
     private final UnitId unitId;
     private final TrackFinishedCallback callback;
+    private final boolean ignoreTimestamp;
     private final List<UnitPositionData> positionList;
     private final Instant createdAt;
     private final int positionLimit;
     private final Duration maximumTrackDuration;
 
-    UnitTrack(final UnitId unitId, final TrackFinishedCallback callback, final GpxConfiguration configuration) {
+    UnitTrack(final UnitId unitId, final TrackFinishedCallback callback, final GpxConfiguration configuration, final boolean ignoreTimestamp) {
         this.unitId = unitId;
         this.callback = callback;
+        this.ignoreTimestamp = ignoreTimestamp;
         this.positionList = new LinkedList<>();
         this.createdAt = Instant.now();
         this.positionLimit = configuration.getPositionLimit();
@@ -43,8 +48,22 @@ class UnitTrack {
     }
 
     void addPosition(final UnitPositionData position) {
+        UnitPositionData updatedPosition;
+        if (ignoreTimestamp) {
+            updatedPosition = new UnitPositionData(
+                    LocalDateTime.now(ZoneOffset.UTC),
+                    position.getLongitude(),
+                    position.getLatitude(),
+                    position.getAltitude(),
+                    position.getUnitId().orElse(null),
+                    position.getUnitStatus().orElse(null)
+            );
+        } else {
+            updatedPosition = position;
+        }
+
         synchronized (positionList) {
-            positionList.add(position);
+            positionList.add(updatedPosition);
         }
 
         if (positionList.size() == this.positionLimit) {

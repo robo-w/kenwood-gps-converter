@@ -45,13 +45,11 @@ class GpxWriter implements Closeable {
     private static final DateTimeFormatter FILENAME_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss", Locale.ROOT);
 
     private final GpxConfiguration configuration;
-    private final boolean ignoreTimestamp;
     private final ExecutorService executor;
 
     @Inject
-    GpxWriter(final GpxConfiguration configuration, @IgnoreTimestamp final boolean ignoreTimestamp) {
+    GpxWriter(final GpxConfiguration configuration) {
         this.configuration = configuration;
-        this.ignoreTimestamp = ignoreTimestamp;
         this.executor = Executors.newSingleThreadExecutor(THREAD_FACTORY);
         checkIfDirectoryIsWritable();
     }
@@ -100,14 +98,11 @@ class GpxWriter implements Closeable {
         }
 
         private void addPositionToTrack(final TrackSegment.Builder builder, final UnitPositionData position) {
-            Instant timestamp = ignoreTimestamp
-                    ? Instant.now()
-                    : position.getTimestamp().toInstant(ZoneOffset.UTC);
             builder.addPoint(
                     p -> p.lat(position.getLatitude())
                             .lon(position.getLongitude())
                             .ele(position.getAltitude())
-                            .time(timestamp));
+                            .time(position.getTimestamp().toInstant(ZoneOffset.UTC)));
         }
 
         private String createGpxFilename(final Instant createdAt) {
