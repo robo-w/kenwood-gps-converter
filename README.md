@@ -35,6 +35,13 @@ The converter supports three modes, which can be enabled independently:
   The track is written on 600 position reports or after 12 hours, depending which trigger comes first.
   At the moment this is only configurable by changing the code in `CommandLineBootstrapper`.
 
+The tool expects the serial data of the radio on standard input.
+You can directly pipe the serial data from the device to program with a program of your choice,
+for example by `unbuffer cat /dev/ttyUSB0 | java -jar ...`.
+You can also convert already recorded serial output by `cat recorded-serial-data.txt | java -jar ...`.
+For a full working example of streaming the serial data see
+[scripts/linux/start-geobroker-mode.sh](scripts/linux/start-geobroker-mode.sh).
+
 ### Parameters
 
 At least one operation mode must be selected.
@@ -50,6 +57,8 @@ At least one operation mode must be selected.
                                  parsed and printed out to stdout.
 
 ## Build
+
+Checkout and build the referenced version of [Geobroker Client Library](https://github.com/robo-w/geobroker-client-lib).
 
 Run `mvn clean install` to build package.
 The resulting `kenwood-gps-converter-<version>-jar-with-depencies.jar` is the
