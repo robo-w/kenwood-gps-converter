@@ -1,5 +1,7 @@
 # Kenwood GPS Converter
 
+**This software is intended to be used with Kenwood radios. The software is neither built nor maintained by Kenwood.**
+
 Java command line tool to convert received position reports to a common format for further processing.
 The converter supports the Kenwood proprietary PKNDS format which is usually received via
 the serial port of a radio.
@@ -13,11 +15,11 @@ This information is needed to filter the data by sending radio.
 
 The PKNDS format is described for example in the NX-5000 manual:
 
-    Upon receipt of the GPS data, the base station transceiver creates the $PKNDS data which is the
-    KENWOOD proprietary sentence from the received GPS data and sends the created data from
-    the communication port.
-    The $PKNDS data contains the $GPRMC data in the NMEA-0183 format, Unit ID, and the status
-    information.
+> Upon receipt of the GPS data, the base station transceiver creates the $PKNDS data which is the
+> KENWOOD proprietary sentence from the received GPS data and sends the created data from
+> the communication port.
+> The $PKNDS data contains the $GPRMC data in the NMEA-0183 format, Unit ID, and the status
+> information.
 
 ## Usage
 
