@@ -67,7 +67,7 @@ final version including all bundled dependencies.
 ## License
 
 This software is available under MIT license.
-See [License file](license.md) for further details.
+See [License file](LICENSE) for further details.
 
 ## Disclaimer
 
