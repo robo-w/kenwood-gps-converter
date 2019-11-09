@@ -7,7 +7,6 @@
 package at.or.eru.gps.converter.gpx;
 
 import at.or.eru.gps.converter.configuration.GpxConfiguration;
-import at.or.eru.gps.converter.configuration.IgnoreTimestamp;
 import at.or.eru.gps.converter.data.UnitId;
 import at.or.eru.gps.converter.data.UnitPositionData;
 import com.google.common.collect.ImmutableList;

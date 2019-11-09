@@ -28,6 +28,7 @@ import java.util.List;
 
 public class CommandLineBootstrapper {
     private static final Logger LOG = LoggerFactory.getLogger(CommandLineBootstrapper.class);
+    private static final String APPLICATION_VERSION = "1.3.1-SNAPSHOT";
 
     public static void main(String... args) throws IOException {
         Options options = new Options();
@@ -78,6 +79,8 @@ public class CommandLineBootstrapper {
         } else {
             gpxConfiguration = new GpxConfiguration(0, 0, null, 0);
         }
+
+        LOG.info("Starting up kenwood-gps-converter version {}.", APPLICATION_VERSION);
 
         Injector injector = Guice.createInjector(
                 new GeobrokerModule(geobrokerConfiguration, commandLine.hasOption("i")),

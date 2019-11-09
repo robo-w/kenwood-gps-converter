@@ -9,7 +9,6 @@ package at.or.eru.gps.converter;
 import at.or.eru.gps.converter.parser.StreamParser;
 
 import javax.inject.Inject;
-import java.util.Map;
 
 class EntryPoint {
     private final StreamParser streamParser;

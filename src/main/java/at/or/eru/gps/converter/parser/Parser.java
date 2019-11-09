@@ -30,7 +30,7 @@ public class Parser {
     private static final Pattern PATTERN = Pattern.compile(".*PKNDS(.*),\\*.*");
     private static final String TIME_PATTERN = "HHmmss";
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_PATTERN, Locale.ROOT);
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyy " + TIME_PATTERN, Locale.ROOT);;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyy " + TIME_PATTERN, Locale.ROOT);
 
     Optional<UnitPositionData> getPointForStringLine(final String line) {
         Optional<UnitPositionData> point = Optional.empty();
