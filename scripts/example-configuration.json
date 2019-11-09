@@ -1,0 +1,10 @@
+{
+  "baseUrl": "https://geobroker.yourserver.local/endpoint/",
+  "unitConfigurationList": [
+    {
+      "geobrokerUnitId": "42-unitIdOnGeobroker",
+      "geobrokerAuthenticationToken": "secret-authentication-token",
+      "radioUnitId": "4300123"
+    }
+  ]
+}
