@@ -28,7 +28,7 @@ import java.util.List;
 
 public class CommandLineBootstrapper {
     private static final Logger LOG = LoggerFactory.getLogger(CommandLineBootstrapper.class);
-    private static final String APPLICATION_VERSION = "1.3.1";
+    private static final String APPLICATION_VERSION = "1.3.2-SNAPSHOT";
 
     public static void main(String... args) throws IOException {
         Options options = new Options();
