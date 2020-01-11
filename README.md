@@ -58,6 +58,63 @@ At least one operation mode must be selected.
      -s,--streaming-mode         Start in streaming mode. Input from stdin is
                                  parsed and printed out to stdout.
 
+### Step-by-step installation on Raspberry Pi
+
+To run the pre-built kenwood-gps program on a Raspberry Pi, following steps are necessary:
+
+* Install Java 11 JRE and the package `expect` (required for the `unbuffer` command in the startup script)
+
+```shell script
+sudo apt-get install openjdk-11-jre-headless expect
+``` 
+
+* Create a directory to download the release. `kenwood-gps` is used in the scripts.
+  If you prefer another name, update the scripts manually!
+
+```shell script
+mkdir ~/kenwood-gps
+cd ~/kenwood-gps
+
+wget https://github.com/robo-w/kenwood-gps-converter/releases/download/v1.3.1/kenwood-gps-converter-1.3.1.jar
+wget https://github.com/robo-w/kenwood-gps-converter/releases/download/v1.3.1/scripts.zip
+```
+
+* Unzip the scripts, and make the program and the scripts executable.
+
+```shell script
+unzip scripts.zip
+
+chmod +x kenwood-gps-converter-1.3.1.jar
+chmod +x linux/start-geobroker-mode.sh
+chmod +x linux/set_baud_rate_8N1.sh
+```
+
+* Adapt the geobroker configuration file. An example configuration is part of the scripts.zip.
+  The resulting file must be named `geobroker-config.js` to be found by the startup script.
+
+```shell script
+mv example-configuration.json geobroker-config.js # Adapt example or use your own configuration file.
+```
+
+* Move scripts to home directory for easy access.
+
+```shell script
+mv linux/*.sh ~/
+```
+
+* Run program manually.
+
+```shell script
+~/start-geobroker-mode.sh /dev/ttyUSB0 # manually start program with first USB-to-serial converter
+```
+
+* (Optional) Add following lines to `rc.local` to start the program on boot.
+
+```shell script
+printf "Starting kenwood-gps-converter"
+sudo su pi -c '/home/pi/start-geobroker-mode.sh /dev/ttyUSB0' &
+```
+
 ## Build
 
 Checkout and build the referenced version of [Geobroker Client Library](https://github.com/robo-w/geobroker-client-lib).
