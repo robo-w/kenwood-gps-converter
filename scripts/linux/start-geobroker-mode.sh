@@ -6,7 +6,7 @@
 # Change the following parameters according to your system:
 
 LOG_DIRECTORY=/home/pi/kenwood-gps
-PATH_TO_CONVERTER=/home/pi/kenwood-gps/kenwood-gps-converter-1.2.1.jar
+PATH_TO_CONVERTER=/home/pi/kenwood-gps/kenwood-gps-converter-1.3.1.jar
 GEOBROKER_CONFIG_FILE=/home/pi/kenwood-gps/geobroker-config.js
 
 # Script starts here...
