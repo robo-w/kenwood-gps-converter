@@ -28,7 +28,7 @@
         <apache.commons.lang3.version>3.9</apache.commons.lang3.version>
         <com.google.guava.version>28.1-jre</com.google.guava.version>
         <io.jenetics.jpx.version>1.5.3</io.jenetics.jpx.version>
-        <commons.io.version>2.6</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
 
         <!-- Test dependencies -->
         <junit.version>4.12</junit.version>
