@@ -21,7 +21,7 @@
         <geobroker.client.lib.version>1.0.0</geobroker.client.lib.version>
 
         <slf4j.version>1.7.30</slf4j.version>
-        <log4j2.version>2.15.0</log4j2.version>
+        <log4j2.version>2.16.0</log4j2.version>
         <commons.cli.version>1.4</commons.cli.version>
         <com.google.inject.guice.version>4.2.2</com.google.inject.guice.version>
         <com.google.code.findbugs.jsr305>2.0.1</com.google.code.findbugs.jsr305>
