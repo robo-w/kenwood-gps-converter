@@ -20,20 +20,20 @@
 
         <geobroker.client.lib.version>1.0.0</geobroker.client.lib.version>
 
-        <slf4j.version>1.7.30</slf4j.version>
-        <log4j2.version>2.17.0</log4j2.version>
+        <slf4j.version>1.7.33</slf4j.version>
+        <log4j2.version>2.17.1</log4j2.version>
         <commons.cli.version>1.4</commons.cli.version>
-        <com.google.inject.guice.version>4.2.2</com.google.inject.guice.version>
-        <com.google.code.findbugs.jsr305>2.0.1</com.google.code.findbugs.jsr305>
+        <com.google.inject.guice.version>5.1.0</com.google.inject.guice.version>
+        <com.google.code.findbugs.jsr305>3.0.2</com.google.code.findbugs.jsr305>
         <apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
-        <com.google.guava.version>30.1.1-jre</com.google.guava.version>
-        <io.jenetics.jpx.version>1.5.3</io.jenetics.jpx.version>
-        <commons.io.version>2.8.0</commons.io.version>
+        <com.google.guava.version>31.0.1-jre</com.google.guava.version>
+        <io.jenetics.jpx.version>2.3.0</io.jenetics.jpx.version>
+        <commons.io.version>2.11.0</commons.io.version>
 
         <!-- Test dependencies -->
         <junit.version>4.13.2</junit.version>
-        <hamcrest.version>1.3</hamcrest.version>
-        <mockito.version>1.9.5</mockito.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <mockito.version>1.10.19</mockito.version>
         <hamcrest.optional.matcher.version>2.0.0</hamcrest.optional.matcher.version>
     </properties>
 
@@ -172,7 +172,7 @@
 
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
+            <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
