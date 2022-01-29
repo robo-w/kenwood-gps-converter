@@ -30,7 +30,7 @@ import java.io.IOException;
 
 public class CommandLineBootstrapper {
     private static final Logger LOG = LoggerFactory.getLogger(CommandLineBootstrapper.class);
-    private static final String APPLICATION_VERSION = "1.3.2-SNAPSHOT";
+    private static final String APPLICATION_VERSION = "1.3.2";
 
     public static void main(String... args) throws IOException {
         Options options = new Options();
