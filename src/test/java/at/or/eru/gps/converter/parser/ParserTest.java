@@ -36,7 +36,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, ???, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,N,01409.5561,E,000.0,,020618,,00,004332199,0028,00,*00";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getLatitude(), closeTo(48.1550666666, EPSILON));
         assertThat(data.getLongitude(), closeTo(14.159268333333, EPSILON));
@@ -48,7 +48,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, ???, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,020618,,00,004332199,0028,00,*00";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getLatitude(), closeTo(-48.1550666666, EPSILON));
         assertThat(data.getLongitude(), closeTo(-14.159268333333, EPSILON));
@@ -60,7 +60,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,020618,,00,004332199,0028,00,*00";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getUnitId(), isPresentAnd(equalTo(UnitId.fromString("4332199"))));
     }
@@ -70,7 +70,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,020618,,00,004332199,0028,00,*00";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getUnitStatus(), isPresentAnd(equalTo(UnitStatus.fromString("28"))));
     }
@@ -80,7 +80,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,020618,,00,004332199,0028,00,*00";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getTimestamp(), equalTo(LocalDateTime.of(2018, 6, 2, 7, 45, 5)));
     }
@@ -90,7 +90,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,,,00,004332199,0028,00,*00";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getTimestamp(), equalTo(LocalTime.of(7, 45, 5).atDate(LocalDate.now())));
     }
@@ -100,7 +100,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,234520,A,4809.3040,S,01409.5561,W,000.0,,021218,,00,004332199,0028,00,*00";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getTimestamp(), equalTo(LocalDateTime.of(2018, 12, 2, 23, 45, 20)));
     }
@@ -110,7 +110,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,004520,A,4809.3040,S,01409.5561,W,000.0,,021218,,00,004332199,0028,00,*00";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getTimestamp(), equalTo(LocalDateTime.of(2018, 12, 2, 0, 45, 20)));
     }
@@ -120,7 +120,7 @@ class ParserTest {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "$PKNDS,105242,A,4809.3040,N,01409.5561,E,000.0,000.0,081019,1.40,W00,U33998,207,00,*06";
 
-        UnitPositionData data = sut.getPointForStringLine(input).get();
+        UnitPositionData data = sut.getPointForStringLine(input).orElseThrow();
 
         assertThat(data.getUnitId(), isPresentAnd(equalTo(UnitId.fromString("U33998"))));
         assertThat(data.getUnitStatus(), isPresentAnd(equalTo(UnitStatus.fromInt(207))));

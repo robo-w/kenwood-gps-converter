@@ -27,7 +27,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 public class CommandLineBootstrapper {
     private static final Logger LOG = LoggerFactory.getLogger(CommandLineBootstrapper.class);
