@@ -9,30 +9,30 @@ package at.or.eru.gps.converter.parser;
 import at.or.eru.gps.converter.data.UnitId;
 import at.or.eru.gps.converter.data.UnitPositionData;
 import at.or.eru.gps.converter.data.UnitStatus;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static com.github.npathai.hamcrestopt.OptionalMatchers.isPresentAnd;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
-public class ParserTest {
+class ParserTest {
     private static final double EPSILON = 0.0001;
 
     private Parser sut;
 
-    @Before
-    public void init() {
+    @BeforeEach
+    void init() {
         sut = new Parser();
     }
 
     @Test
-    public void returnValidString() {
+    void returnValidString() {
         // time, latitude, longitude, speed, heading, ???, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,N,01409.5561,E,000.0,,020618,,00,004332199,0028,00,*00";
 
@@ -44,7 +44,7 @@ public class ParserTest {
     }
 
     @Test
-    public void returnValidNegativeString() {
+    void returnValidNegativeString() {
         // time, latitude, longitude, speed, heading, ???, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,020618,,00,004332199,0028,00,*00";
 
@@ -56,7 +56,7 @@ public class ParserTest {
     }
 
     @Test
-    public void returnValidStringWithUnitId() {
+    void returnValidStringWithUnitId() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,020618,,00,004332199,0028,00,*00";
 
@@ -66,7 +66,7 @@ public class ParserTest {
     }
 
     @Test
-    public void returnValidStringWithUnitStatus() {
+    void returnValidStringWithUnitStatus() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,020618,,00,004332199,0028,00,*00";
 
@@ -76,7 +76,7 @@ public class ParserTest {
     }
 
     @Test
-    public void returnValidStringWithTimestamp() {
+    void returnValidStringWithTimestamp() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,020618,,00,004332199,0028,00,*00";
 
@@ -86,7 +86,7 @@ public class ParserTest {
     }
 
     @Test
-    public void returnValidStringWithGeneratedTimestamp() {
+    void returnValidStringWithGeneratedTimestamp() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,074505,A,4809.3040,S,01409.5561,W,000.0,,,,00,004332199,0028,00,*00";
 
@@ -96,7 +96,7 @@ public class ParserTest {
     }
 
     @Test
-    public void returnValidStringWithTimestampPm() {
+    void returnValidStringWithTimestampPm() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,234520,A,4809.3040,S,01409.5561,W,000.0,,021218,,00,004332199,0028,00,*00";
 
@@ -106,7 +106,7 @@ public class ParserTest {
     }
 
     @Test
-    public void returnValidStringWithTimestampMidnight() {
+    void returnValidStringWithTimestampMidnight() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "00001$PKNDS,004520,A,4809.3040,S,01409.5561,W,000.0,,021218,,00,004332199,0028,00,*00";
 
@@ -116,7 +116,7 @@ public class ParserTest {
     }
 
     @Test
-    public void returnValidNxdnUnit() {
+    void returnValidNxdnUnit() {
         // time, latitude, longitude, speed, heading, date, ???, ???, unit id, status
         String input = "$PKNDS,105242,A,4809.3040,N,01409.5561,E,000.0,000.0,081019,1.40,W00,U33998,207,00,*06";
 

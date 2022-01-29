@@ -8,12 +8,15 @@ package at.or.eru.gps.converter;
 
 import at.or.eru.gps.converter.configuration.GeobrokerConfiguration;
 import at.or.eru.gps.converter.configuration.GpxConfiguration;
+import at.or.eru.gps.converter.configuration.IoProvider;
 import at.or.eru.gps.converter.configuration.StreamingConfiguration;
+import at.or.eru.gps.converter.configuration.SystemIoProvider;
 import at.or.eru.gps.converter.geobroker.GeobrokerModule;
 import at.or.eru.gps.converter.gpx.GpxModule;
 import com.google.gson.Gson;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Stage;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -70,22 +73,24 @@ public class CommandLineBootstrapper {
         if (commandLine.hasOption("g")) {
             geobrokerConfiguration = createGeobrokerConfiguration(commandLine.getOptionValue("g"));
         } else {
-            geobrokerConfiguration = new GeobrokerConfiguration(null, List.of());
+            geobrokerConfiguration = GeobrokerConfiguration.NO_OP;
         }
 
         GpxConfiguration gpxConfiguration;
         if (commandLine.hasOption("d")) {
             gpxConfiguration = new GpxConfiguration(600, 720, commandLine.getOptionValue("d"), 15);
         } else {
-            gpxConfiguration = new GpxConfiguration(0, 0, null, 0);
+            gpxConfiguration = GpxConfiguration.NO_OP;
         }
 
         LOG.info("Starting up kenwood-gps-converter version {}.", APPLICATION_VERSION);
 
         Injector injector = Guice.createInjector(
+                Stage.PRODUCTION,
                 new GeobrokerModule(geobrokerConfiguration, commandLine.hasOption("i")),
                 new GpxModule(gpxConfiguration),
-                new StreamingModule(streamingConfiguration)
+                new StreamingModule(streamingConfiguration),
+                binder -> binder.bind(IoProvider.class).to(SystemIoProvider.class)
         );
         EntryPoint entryPoint = injector.getInstance(EntryPoint.class);
         entryPoint.startApplication();

@@ -11,6 +11,8 @@ import okhttp3.HttpUrl;
 import java.util.List;
 
 public class GeobrokerConfiguration {
+    public static final GeobrokerConfiguration NO_OP = new GeobrokerConfiguration(null, List.of());
+
     private final String baseUrl;
     private final List<UnitConfiguration> unitConfigurationList;
 

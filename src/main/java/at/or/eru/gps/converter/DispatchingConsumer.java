@@ -8,6 +8,7 @@ package at.or.eru.gps.converter;
 
 import at.or.eru.gps.converter.configuration.GeobrokerConfiguration;
 import at.or.eru.gps.converter.configuration.GpxConfiguration;
+import at.or.eru.gps.converter.configuration.IoProvider;
 import at.or.eru.gps.converter.configuration.StreamingConfiguration;
 import at.or.eru.gps.converter.data.UnitPositionData;
 import at.or.eru.gps.converter.geobroker.GeobrokerUnitDataHandler;
@@ -22,6 +23,7 @@ public class DispatchingConsumer {
     private static final Logger LOG = LoggerFactory.getLogger(DispatchingConsumer.class);
 
     private final StreamingConfiguration streamingConfiguration;
+    private final IoProvider ioProvider;
     private final TrackCache trackCache;
     private final GeobrokerUnitDataHandler geobrokerUnitDataHandler;
 
@@ -30,8 +32,10 @@ public class DispatchingConsumer {
             final GpxConfiguration gpxConfiguration,
             final GeobrokerConfiguration geobrokerConfiguration,
             final StreamingConfiguration streamingConfiguration,
+            final IoProvider ioProvider,
             final Injector injector) {
         this.streamingConfiguration = streamingConfiguration;
+        this.ioProvider = ioProvider;
         if (gpxConfiguration.isTrackWritingEnabled()) {
             LOG.info("GPX Track Caching is ENABLED.");
             this.trackCache = injector.getInstance(TrackCache.class);
@@ -57,7 +61,7 @@ public class DispatchingConsumer {
         }
 
         if (streamingConfiguration.isStreamingModeEnabled()) {
-            System.out.println(positionData);
+            ioProvider.getStreamTarget().println(positionData);
         }
     }
 }

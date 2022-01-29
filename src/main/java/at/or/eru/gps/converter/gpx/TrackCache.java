@@ -98,7 +98,7 @@ public class TrackCache implements TrackFinishedCallback {
 
         @Override
         public void run() {
-            System.err.println("Try to flush all existing tracks to disk on shutdown...");
+            LOG.info("Try to flush all existing tracks to disk on shutdown...");
             finishAllTracks();
             gpxWriter.close();
         }

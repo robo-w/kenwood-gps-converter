@@ -7,6 +7,8 @@
 package at.or.eru.gps.converter.configuration;
 
 public class GpxConfiguration {
+    public static final GpxConfiguration NO_OP = new GpxConfiguration(0, 0, null, 0);
+
     private final int positionLimit;
     private final long maximumTrackTimeInMinutes;
     private final String gpxOutputDirectory;
