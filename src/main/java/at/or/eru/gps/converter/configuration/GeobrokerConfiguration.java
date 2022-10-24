@@ -7,10 +7,14 @@
 package at.or.eru.gps.converter.configuration;
 
 import okhttp3.HttpUrl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class GeobrokerConfiguration {
+    private static final Logger LOG = LoggerFactory.getLogger(GeobrokerConfiguration.class);
+
     public static final GeobrokerConfiguration NO_OP = new GeobrokerConfiguration(null, List.of());
 
     private final String baseUrl;
@@ -32,15 +36,29 @@ public class GeobrokerConfiguration {
     }
 
     public boolean isValid() {
-        return baseUrl != null && unitConfigurationList != null && checkUrl();
+        boolean valid = true;
+        if (baseUrl == null) {
+            LOG.debug("Base URL is missing in Geobroker configuration!");
+            valid = false;
+        } else if (!isUrlValid()) {
+            valid = false;
+        }
+
+        if (unitConfigurationList == null) {
+            LOG.debug("Unit configuration list is missing in Geobroker configuration!");
+            valid = false;
+        }
+
+        return valid;
     }
 
-    private boolean checkUrl() {
+    private boolean isUrlValid() {
         boolean valid;
         try {
             HttpUrl.get(baseUrl);
             valid = true;
         } catch (IllegalArgumentException e) {
+            LOG.debug("Validation of configured URL failed.", e);
             valid = false;
         }
 

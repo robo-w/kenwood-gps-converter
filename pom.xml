@@ -20,22 +20,22 @@
 
         <geobroker.client.lib.version>1.0.0</geobroker.client.lib.version>
 
-        <slf4j.version>1.7.33</slf4j.version>
-        <log4j2.version>2.17.1</log4j2.version>
-        <commons.cli.version>1.4</commons.cli.version>
+        <slf4j.version>2.0.3</slf4j.version>
+        <log4j2.version>2.19.0</log4j2.version>
+        <commons.cli.version>1.5.0</commons.cli.version>
         <com.google.inject.guice.version>5.1.0</com.google.inject.guice.version>
         <com.google.code.findbugs.jsr305>3.0.2</com.google.code.findbugs.jsr305>
         <apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
-        <com.google.guava.version>31.0.1-jre</com.google.guava.version>
+        <com.google.guava.version>31.1-jre</com.google.guava.version>
         <io.jenetics.jpx.version>2.3.0</io.jenetics.jpx.version>
         <commons.io.version>2.11.0</commons.io.version>
 
         <!-- Test dependencies -->
-        <junit.version>5.8.2</junit.version>
+        <junit.version>5.9.0</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
         <mockito.version>1.10.19</mockito.version>
         <hamcrest.optional.matcher.version>2.0.0</hamcrest.optional.matcher.version>
-        <org.awaitility.version>3.1.6</org.awaitility.version>
+        <org.awaitility.version>4.2.0</org.awaitility.version>
     </properties>
 
     <build>
