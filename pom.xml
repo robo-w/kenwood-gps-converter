@@ -26,7 +26,7 @@
         <com.google.inject.guice.version>5.1.0</com.google.inject.guice.version>
         <com.google.code.findbugs.jsr305>3.0.2</com.google.code.findbugs.jsr305>
         <apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
-        <com.google.guava.version>31.1-jre</com.google.guava.version>
+        <com.google.guava.version>32.0.0-jre</com.google.guava.version>
         <io.jenetics.jpx.version>2.3.0</io.jenetics.jpx.version>
         <commons.io.version>2.11.0</commons.io.version>
 
