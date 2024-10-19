@@ -15,6 +15,13 @@ jobs:
       contents: read
       attestations: write
     steps:
+      - name: Checkout geobroker-api
+        uses: actions/checkout@v4
+        with:
+          repository: 'wrk-fmd/geobroker'
+          path: 'geobroker'
+          ref: "v1.1.0"
+
       - name: Checkout geobroker-client-api
         uses: actions/checkout@v4
         with:
@@ -35,7 +42,11 @@ jobs:
           architecture: x64
           cache: maven
 
-      - name: Build Dependency
+      - name: Build Geobroker API
+        run: mvn clean install
+        working-directory: 'geobroker/geobroker-api'
+
+      - name: Build Geobroker Client Lib
         run: mvn clean install
         working-directory: 'geobroker-client-lib'
 
