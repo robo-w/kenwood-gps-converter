@@ -24,12 +24,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           architecture: x64
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
           cache: maven
 
       - name: Build Full Project
         run: mvn clean install
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+          MAVEN_USERNAME: robo-w
+          MAVEN_PASSWORD: ${{ secrets.GH_REPO_TOKEN }}
 
       - name: Provide Kenwood GPS Converter
         uses: actions/upload-artifact@v4
