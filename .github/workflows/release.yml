@@ -28,7 +28,12 @@ jobs:
           cache: maven
 
       - name: Build Maven Project
-        run: mvn clean install deploy
+        run: mvn clean install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+
+      - name: Build Maven Project
+        run: mvn deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -54,7 +59,7 @@ jobs:
         id: upload_jar
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: target/${{ github.ref_name }}-jar-with-dependencies.jar
