@@ -30,8 +30,7 @@ jobs:
       - name: Build Maven Project
         run: mvn clean install
         env:
-          MAVEN_USERNAME: robo-w
-          MAVEN_PASSWORD: ${{ secrets.GH_REPO_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
 
       - name: Build Maven Project
         run: mvn deploy
