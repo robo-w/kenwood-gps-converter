@@ -67,6 +67,7 @@ class GpxWriter implements Closeable {
     public void close() {
         try {
             executor.shutdown();
+            //noinspection ResultOfMethodCallIgnored
             executor.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             LOG.warn("Shutdown was interrupted. ", e);

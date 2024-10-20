@@ -1,0 +1,62 @@
+name: Release GPS Converter
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'kenwood-gps-converter-*'
+
+jobs:
+  build_maven_artifacts:
+    name: Build Maven Artifacts
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.ref_name, 'kenwood-gps-converter-') }}
+    permissions:
+      packages: write
+      contents: write
+      attestations: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 for x64
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          architecture: x64
+          cache: maven
+
+      - name: Build Maven Project
+        run: mvn clean install deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Provide JAR file with dependencies
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.ref_name }}-jar-with-dependencies.jar
+          path: target/${{ github.ref_name }}-jar-with-dependencies.jar
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref_name }}
+          draft: true
+          prerelease: false
+          body: 'Auto-generated release - release notes tba'
+
+      - name: Upload JAR File
+        id: upload_jar
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: target/${{ github.ref_name }}-jar-with-dependencies.jar
+          asset_name: ${{ github.ref_name }}-jar-with-dependencies.jar
+          asset_content_type: application/java-archive
