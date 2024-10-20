@@ -240,9 +240,18 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-            <id>github</id>
-            <name>github</name>
+            <id>github-lib</id>
+            <name>github-lib</name>
             <url>https://maven.pkg.github.com/robo-w/geobroker-client-lib</url>
+        </repository>
+
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>github-api</id>
+            <name>github-api</name>
+            <url>https://maven.pkg.github.com/wrk-fmd/geobroker</url>
         </repository>
     </repositories>
 </project>
