@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wien.dragon.geobroker.lib.GeobrokerPositionSender;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.Collection;

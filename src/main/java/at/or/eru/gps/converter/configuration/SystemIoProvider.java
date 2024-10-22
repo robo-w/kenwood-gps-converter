@@ -6,7 +6,7 @@
 
 package at.or.eru.gps.converter.configuration;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import java.io.InputStream;
 import java.io.PrintStream;
 
