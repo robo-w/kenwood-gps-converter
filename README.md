@@ -62,10 +62,10 @@ At least one operation mode must be selected.
 
 To run the pre-built kenwood-gps program on a Raspberry Pi, following steps are necessary:
 
-* Install Java 11 JRE and the package `expect` (required for the `unbuffer` command in the startup script)
+* Install Java 17 JRE and the package `expect` (required for the `unbuffer` command in the startup script)
 
 ```shell script
-sudo apt-get install openjdk-11-jre-headless expect
+sudo apt-get install openjdk-17-jre-headless expect
 ``` 
 
 * Create a directory to download the release. `kenwood-gps` is used in the scripts.
