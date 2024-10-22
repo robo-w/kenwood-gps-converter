@@ -33,19 +33,30 @@ public class CommandLineBootstrapper {
     private static final String APPLICATION_VERSION = "1.3.3-SNAPSHOT";
 
     public static void main(String... args) throws IOException {
-        Options options = new Options();
-        options.addOption("s", "streaming-mode", false, "Start in streaming mode. Input from stdin is parsed and printed out to stdout.");
-        options.addOption(
-                "g",
-                "geobroker-mode",
-                true,
-                "Start in Geobroker mode. Input from stdin is parsed and sent to the configured Geobroker server. Configuration JSON file must be provided as argument.");
-        options.addOption("i", "ignore-timestamp", false, "Ignore timestamps sent by the radio and generate on server.");
-        options.addOption("d", "gpx-directory", true, "Output directory for GPX tracks.");
-        DefaultParser parser = new DefaultParser();
+        var options = createOptions();
+        var commandLine = createCommandLine(args, options);
 
+        var streamingConfiguration = createStreamingConfiguration(commandLine);
+        var geobrokerConfiguration = createGeobrokerConfiguration(commandLine);
+        var gpxConfiguration = createGpxConfiguration(commandLine);
+
+        LOG.info("Starting up kenwood-gps-converter version {}.", APPLICATION_VERSION);
+
+        Injector injector = Guice.createInjector(
+                Stage.PRODUCTION,
+                new GeobrokerModule(geobrokerConfiguration, commandLine.hasOption("i")),
+                new GpxModule(gpxConfiguration),
+                new StreamingModule(streamingConfiguration),
+                binder -> binder.bind(IoProvider.class).to(SystemIoProvider.class)
+        );
+        EntryPoint entryPoint = injector.getInstance(EntryPoint.class);
+        entryPoint.startApplication();
+    }
+
+    private static CommandLine createCommandLine(final String[] args, final Options options) {
         CommandLine commandLine;
         try {
+            DefaultParser parser = new DefaultParser();
             commandLine = parser.parse(options, args);
         } catch (ParseException e) {
             LOG.error("Failed to parse command line options.", e);
@@ -60,39 +71,50 @@ public class CommandLineBootstrapper {
             new HelpFormatter().printHelp("kenwood-gps-converter", options);
             System.exit(-1);
         }
+        return commandLine;
+    }
 
-        StreamingConfiguration streamingConfiguration;
-        if (commandLine.hasOption("s")) {
-            streamingConfiguration = new StreamingConfiguration(true);
-        } else {
-            streamingConfiguration = new StreamingConfiguration(false);
-        }
-
-        GeobrokerConfiguration geobrokerConfiguration;
-        if (commandLine.hasOption("g")) {
-            geobrokerConfiguration = createGeobrokerConfiguration(commandLine.getOptionValue("g"));
-        } else {
-            geobrokerConfiguration = GeobrokerConfiguration.NO_OP;
-        }
-
+    private static GpxConfiguration createGpxConfiguration(final CommandLine commandLine) {
         GpxConfiguration gpxConfiguration;
         if (commandLine.hasOption("d")) {
             gpxConfiguration = new GpxConfiguration(600, 720, commandLine.getOptionValue("d"), 15);
         } else {
             gpxConfiguration = GpxConfiguration.NO_OP;
         }
+        return gpxConfiguration;
+    }
 
-        LOG.info("Starting up kenwood-gps-converter version {}.", APPLICATION_VERSION);
+    private static StreamingConfiguration createStreamingConfiguration(final CommandLine commandLine) {
+        StreamingConfiguration streamingConfiguration;
+        if (commandLine.hasOption("s")) {
+            streamingConfiguration = new StreamingConfiguration(true);
+        } else {
+            streamingConfiguration = new StreamingConfiguration(false);
+        }
+        return streamingConfiguration;
+    }
 
-        Injector injector = Guice.createInjector(
-                Stage.PRODUCTION,
-                new GeobrokerModule(geobrokerConfiguration, commandLine.hasOption("i")),
-                new GpxModule(gpxConfiguration),
-                new StreamingModule(streamingConfiguration),
-                binder -> binder.bind(IoProvider.class).to(SystemIoProvider.class)
-        );
-        EntryPoint entryPoint = injector.getInstance(EntryPoint.class);
-        entryPoint.startApplication();
+    private static GeobrokerConfiguration createGeobrokerConfiguration(final CommandLine commandLine) throws IOException {
+        GeobrokerConfiguration geobrokerConfiguration;
+        if (commandLine.hasOption("g")) {
+            geobrokerConfiguration = createGeobrokerConfiguration(commandLine.getOptionValue("g"));
+        } else {
+            geobrokerConfiguration = GeobrokerConfiguration.NO_OP;
+        }
+        return geobrokerConfiguration;
+    }
+
+    private static Options createOptions() {
+        Options options = new Options();
+        options.addOption("s", "streaming-mode", false, "Start in streaming mode. Input from stdin is parsed and printed out to stdout.");
+        options.addOption(
+                "g",
+                "geobroker-mode",
+                true,
+                "Start in Geobroker mode. Input from stdin is parsed and sent to the configured Geobroker server. Configuration JSON file must be provided as argument.");
+        options.addOption("i", "ignore-timestamp", false, "Ignore timestamps sent by the radio and generate on server.");
+        options.addOption("d", "gpx-directory", true, "Output directory for GPX tracks.");
+        return options;
     }
 
     private static GeobrokerConfiguration createGeobrokerConfiguration(final String configurationFilePath) throws IOException {
