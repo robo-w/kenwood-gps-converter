@@ -28,7 +28,12 @@ jobs:
           cache: maven
 
       - name: Build Maven Project
-        run: mvn clean install deploy
+        run: mvn clean install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
+
+      - name: Build Maven Project
+        run: mvn deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
