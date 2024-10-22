@@ -12,7 +12,7 @@
 
     <groupId>at.or.eru</groupId>
     <artifactId>kenwood-gps-converter</artifactId>
-    <version>1.3.3</version>
+    <version>1.3.4-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
