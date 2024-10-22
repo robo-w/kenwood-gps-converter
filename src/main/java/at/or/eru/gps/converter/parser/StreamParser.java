@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import java.io.InputStream;
 import java.util.Scanner;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -37,12 +38,16 @@ public class StreamParser {
             .build();
 
     private final Parser parser;
-    private final ExecutorService executor;
+    private final Executor executor;
 
     @Inject
     public StreamParser(final Parser parser) {
+        this(parser, Executors.newSingleThreadExecutor(THREAD_FACTORY));
+    }
+
+    public StreamParser(final Parser parser, final Executor executor) {
         this.parser = parser;
-        this.executor = Executors.newSingleThreadExecutor(THREAD_FACTORY);
+        this.executor = executor;
     }
 
     public void readCoordinateList(final InputStream inputStream, final Consumer<UnitPositionData> resultConsumer) {

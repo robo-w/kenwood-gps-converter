@@ -30,7 +30,7 @@ class StreamParserTest {
 
     @BeforeEach
     void init() {
-        sut = new StreamParser(new Parser());
+        sut = new StreamParser(new Parser(), Runnable::run);
     }
 
     @Test
