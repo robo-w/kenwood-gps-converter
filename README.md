@@ -84,8 +84,8 @@ wget https://github.com/robo-w/kenwood-gps-converter/releases/download/kenwood-g
 ```shell script
 unzip scripts.zip
 
-chmod +x kenwood-gps-converter-2.0.1.jar
-chmod +x start-geobroker-mode.sh
+chmod +x linux/kenwood-gps-converter-2.0.1.jar
+chmod +x linux/start-geobroker-mode.sh
 chmod +x set_baud_rate_8N1.sh
 ```
 
