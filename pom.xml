@@ -18,13 +18,13 @@
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <geobroker.client.lib.version>1.0.1</geobroker.client.lib.version>
+        <geobroker.client.lib.version>2.0.0</geobroker.client.lib.version>
 
         <slf4j.version>2.0.16</slf4j.version>
         <log4j2.version>2.24.1</log4j2.version>
         <commons.cli.version>1.5.0</commons.cli.version>
         <com.google.inject.guice.version>7.0.0</com.google.inject.guice.version>
-        <com.google.code.findbugs.jsr305>3.0.2</com.google.code.findbugs.jsr305>
+        <com.github.spotbugs.annotations.version>4.8.6</com.github.spotbugs.annotations.version>
         <apache.commons.lang3.version>3.17.0</apache.commons.lang3.version>
         <com.google.guava.version>33.3.1-jre</com.google.guava.version>
         <io.jenetics.jpx.version>3.1.0</io.jenetics.jpx.version>
@@ -152,9 +152,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>${com.google.code.findbugs.jsr305}</version>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>${com.github.spotbugs.annotations.version}</version>
         </dependency>
 
         <dependency>

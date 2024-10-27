@@ -6,10 +6,10 @@
 
 package at.or.eru.gps.converter.data;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
