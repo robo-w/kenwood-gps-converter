@@ -65,3 +65,31 @@ jobs:
           asset_path: target/${{ github.ref_name }}-jar-with-dependencies.jar
           asset_name: ${{ github.ref_name }}-jar-with-dependencies.jar
           asset_content_type: application/java-archive
+
+      - name: Upload Example Config
+        id: upload_config
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: scripts/example-configuration.json
+          asset_name: example-configuration.json
+          asset_content_type: application/json
+
+      - name: Zip Scripts
+        working-directory: scripts/
+        run: |
+          rm -rf scripts.zip
+          zip -r scripts.zip linux/
+
+      - name: Upload scripts
+        id: upload_scripts
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: scripts/scripts.zip
+          asset_name: scripts.zip
+          asset_content_type: application/zip

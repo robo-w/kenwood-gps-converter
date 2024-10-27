@@ -9,11 +9,11 @@ package at.or.eru.gps.converter.parser;
 import at.or.eru.gps.converter.data.UnitId;
 import at.or.eru.gps.converter.data.UnitPositionData;
 import at.or.eru.gps.converter.data.UnitStatus;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

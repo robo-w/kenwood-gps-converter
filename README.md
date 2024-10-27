@@ -75,8 +75,8 @@ sudo apt-get install openjdk-17-jre-headless expect
 mkdir ~/kenwood-gps
 cd ~/kenwood-gps
 
-wget https://github.com/robo-w/kenwood-gps-converter/releases/download/v1.3.1/kenwood-gps-converter-1.3.1.jar
-wget https://github.com/robo-w/kenwood-gps-converter/releases/download/v1.3.1/scripts.zip
+wget https://github.com/robo-w/kenwood-gps-converter/releases/download/kenwood-gps-converter-2.0.1/kenwood-gps-converter-2.0.0-jar-with-dependencies.jar
+wget https://github.com/robo-w/kenwood-gps-converter/releases/download/kenwood-gps-converter-2.0.1/scripts.zip
 ```
 
 * Unzip the scripts, and make the program and the scripts executable.
@@ -84,9 +84,9 @@ wget https://github.com/robo-w/kenwood-gps-converter/releases/download/v1.3.1/sc
 ```shell script
 unzip scripts.zip
 
-chmod +x kenwood-gps-converter-1.3.1.jar
-chmod +x linux/start-geobroker-mode.sh
-chmod +x linux/set_baud_rate_8N1.sh
+chmod +x kenwood-gps-converter-2.0.1.jar
+chmod +x start-geobroker-mode.sh
+chmod +x set_baud_rate_8N1.sh
 ```
 
 * Adapt the geobroker configuration file. An example configuration is part of the scripts.zip.
