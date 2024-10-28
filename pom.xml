@@ -15,7 +15,7 @@
     <version>2.0.2-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <geobroker.client.lib.version>2.0.0</geobroker.client.lib.version>
