@@ -35,7 +35,7 @@
         <hamcrest.version>3.0</hamcrest.version>
         <mockito.version>1.10.19</mockito.version>
         <hamcrest.optional.matcher.version>2.0.0</hamcrest.optional.matcher.version>
-        <org.awaitility.version>4.2.0</org.awaitility.version>
+        <org.awaitility.version>4.2.2</org.awaitility.version>
     </properties>
 
     <build>
