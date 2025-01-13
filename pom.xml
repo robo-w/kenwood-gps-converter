@@ -31,7 +31,7 @@
         <commons.io.version>2.18.0</commons.io.version>
 
         <!-- Test dependencies -->
-        <junit.version>5.11.3</junit.version>
+        <junit.version>5.11.4</junit.version>
         <hamcrest.version>3.0</hamcrest.version>
         <mockito.version>1.10.19</mockito.version>
         <hamcrest.optional.matcher.version>2.0.0</hamcrest.optional.matcher.version>
