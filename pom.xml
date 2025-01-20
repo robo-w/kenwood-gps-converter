@@ -24,7 +24,7 @@
         <log4j2.version>2.24.3</log4j2.version>
         <commons.cli.version>1.9.0</commons.cli.version>
         <com.google.inject.guice.version>7.0.0</com.google.inject.guice.version>
-        <com.github.spotbugs.annotations.version>4.8.6</com.github.spotbugs.annotations.version>
+        <com.github.spotbugs.annotations.version>4.9.0</com.github.spotbugs.annotations.version>
         <apache.commons.lang3.version>3.17.0</apache.commons.lang3.version>
         <com.google.guava.version>33.4.0-jre</com.google.guava.version>
         <io.jenetics.jpx.version>3.2.1</io.jenetics.jpx.version>
